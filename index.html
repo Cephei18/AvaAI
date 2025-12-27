@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar Magic | Interactive Creator</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="config.js"></script>
+</head>
+
+<body class="bg-[#0f172a] text-slate-200 min-h-screen flex items-center justify-center p-4 font-sans">
+
+    <div class="w-full max-w-lg bg-[#1e293b] rounded-3xl shadow-2xl overflow-hidden border border-slate-700">
+        <div class="h-1.5 w-full bg-slate-800">
+            <div id="progressBar" class="h-full bg-gradient-to-r from-cyan-500 to-blue-600 transition-all duration-500" style="width: 25%"></div>
+        </div>
+
+        <div class="p-8">
+            <div id="step1" class="step-container">
+                <h2 class="text-2xl font-bold mb-2">Hey! 👋</h2>
+                <p class="text-slate-400 mb-8">Let's create your digital twin. First, upload a clear selfie.</p>
+                <div class="border-2 border-dashed border-slate-600 rounded-2xl p-10 text-center hover:border-cyan-500 transition-colors cursor-pointer" onclick="document.getElementById('photoInput').click()">
+                    <input type="file" id="photoInput" class="hidden" accept="image/*">
+                    <span class="text-4xl mb-4 block">📸</span>
+                    <p id="fileName" class="text-sm text-slate-500">Click to select photo</p>
+                </div>
+                <button onclick="goToStep(2)" id="toStep2" class="w-full mt-8 bg-cyan-600 hover:bg-cyan-500 py-4 rounded-xl font-bold hidden animate-bounce">Analyze Face →</button>
+            </div>
+
+            <div id="step2" class="step-container hidden text-center py-10">
+                <div class="relative w-24 h-24 mx-auto mb-6">
+                    <div class="absolute inset-0 rounded-full border-4 border-cyan-500/20"></div>
+                    <div class="absolute inset-0 rounded-full border-4 border-t-cyan-500 animate-spin"></div>
+                </div>
+                <h2 class="text-xl font-bold mb-2">Scanning your vibe...</h2>
+                <p class="text-slate-400 text-sm italic" id="loadingText">Identifying facial structure...</p>
+            </div>
+
+            <div id="step3" class="step-container hidden">
+                <h2 class="text-xl font-bold mb-6">Customize Your Avatar</h2>
+                
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">1. Choose Style</label>
+                <div class="grid grid-cols-2 gap-3 mb-6" id="themeGrid">
+                    <button class="style-btn p-3 rounded-lg border border-slate-700 bg-slate-800 hover:border-cyan-500 transition" data-style="3D Pixar style">🎬 3D Render</button>
+                    <button class="style-btn p-3 rounded-lg border border-slate-700 bg-slate-800 hover:border-cyan-500 transition" data-style="Cyberpunk Anime">🌃 Synthwave</button>
+                </div>
+
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">2. Add Accessories</label>
+                <input type="text" id="accInput" placeholder="e.g. Gold chain, round glasses" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 mb-6 outline-none focus:border-cyan-500">
+
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">3. Background & Vibe</label>
+                <select id="vibeSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 mb-8 outline-none text-slate-300">
+                    <option value="smiling in a cozy cafe">☕ Cozy & Warm</option>
+                    <option value="cool expression, neon city lights background">💎 Cool & Edgy</option>
+                    <option value="mysterious, dark foggy forest">🌲 Mysterious</option>
+                </select>
+
+                <button onclick="generateMagic()" class="w-full bg-gradient-to-r from-cyan-600 to-blue-600 py-4 rounded-xl font-bold shadow-lg shadow-cyan-900/20">✨ Create Magic</button>
+            </div>
+
+            <div id="step4" class="step-container hidden text-center">
+                <div id="finalAvatar" class="w-64 h-64 mx-auto rounded-3xl overflow-hidden border-4 border-cyan-500 shadow-2xl mb-6"></div>
+                <h2 class="text-2xl font-bold mb-2">You look amazing!</h2>
+                <div class="flex flex-col gap-3">
+                    <button id="downloadBtn" class="bg-slate-700 hover:bg-slate-600 py-2 px-4 rounded-lg text-sm font-medium transition">📥 Download Avatar</button>
+                    <button onclick="location.reload()" class="text-cyan-500 text-sm font-medium">Create Another</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
